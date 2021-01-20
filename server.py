@@ -17,8 +17,8 @@ def news():
     print(request.data)
     print(request.text)
     #requests.post(BLOG_URL, data={})
-    return data
+    return
 
 if __name__ == '__main__':
-    APP.debug=True
-    APP.run()
+    app.debug=True
+    app.run()
