@@ -1,14 +1,15 @@
 import requests
 import psycopg2
 import os
+import time
 """ CONFIG : News
  *
-CREATE TABLE News (
+CREATE TABLE public.announcements (
 	id SMALLINT PRIMARY KEY,
 	title VARCHAR (50) UNIQUE NOT NULL,
 	news VARCHAR (512) NOT NULL
  );
- INSERT INTO News
+ INSERT INTO public.announcements
  VALUES (id, title, news);
  DATE FORMAT : [Aug-06-17]
  (Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)
@@ -17,14 +18,6 @@ DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
 conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
-try:
-    cur.execute("""CREATE TABLE announcements (
-    	id SMALLINT PRIMARY KEY,
-    	title VARCHAR (128) UNIQUE NOT NULL,
-    	news VARCHAR (1024) NOT NULL
-     );""")
-except:
-    pass
 mod_news = {
     11: ("Thanks for downloading this mod![Jan-20-21]", "I hope you will like it! Chao Resort Island isn not dead yet! We are working on a new character by the way! Click to join the mod discord![https://discord.gg/hycdkQAUKN")
 }
@@ -45,7 +38,7 @@ for i in mod_news:
     news.insert(i, mod_news[i][1])
 
 for i in range(len(titles)):
-    txt = f"INSERT INTO announcements(id, title, news) VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
+    txt = f"INSERT INTO public.announcements VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
     cur.execute(txt)
 
 conn.close()
