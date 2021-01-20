@@ -18,8 +18,10 @@ def index():
 def news():
     print(request.form)
     print(request.json)
-    #requests.post(BLOG_URL, data={})
-    return render_template('index.html')
+    over_view = request.form["over_view"]
+    get_id = request.form["get_id"]
+    x = requests.post(BLOG_URL, data={"over_view": over_view, "get_id": get_id})
+    return x.data
 
 if __name__ == '__main__':
     app.debug=True
