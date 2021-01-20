@@ -2,7 +2,7 @@
 import os
 import flask
 import requests
-from flask import render_template
+from flask import render_template, request
 
 # Create the application.
 app = flask.Flask(__name__)
