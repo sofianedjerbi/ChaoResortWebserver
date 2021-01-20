@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import flask
 import requests
+from flask import render_template
 
 # Create the application.
 app = flask.Flask(__name__)
