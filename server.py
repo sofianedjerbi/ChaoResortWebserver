@@ -10,14 +10,14 @@ BLOG_URL = "http://nefault1s.online/Blog.php"
 def index():
     """ Displays the index page accessible at '/'
     """
-    return # Empty
+    return render_template('index.html')
 
-@app.route('/news', methods=['POST'])
+@app.route('/blog', methods=['POST'])
 def news():
     print(request.data)
     print(request.text)
     #requests.post(BLOG_URL, data={})
-    return
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.debug=True
