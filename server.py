@@ -3,7 +3,7 @@ import flask
 import requests
 
 # Create the application.
-APP = flask.Flask(__name__)
+app = flask.Flask(__name__)
 BLOG_URL = "http://nefault1s.online/Blog.php"
 
 @APP.route('/')
