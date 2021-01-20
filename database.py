@@ -26,7 +26,7 @@ try:
 except:
     pass
 mod_news = {
-    11: ("Thanks for downloading this mod![Jan-20-21]", "I hope you'll like it! Chao Resort Island isn't dead yet! We're working on a new character! Click to join the mod discord![https://discord.gg/hycdkQAUKN")
+    11: ("Thanks for downloading this mod![Jan-20-21]", "I hope you will like it! Chao Resort Island isn not dead yet! We are working on a new character by the way! Click to join the mod discord![https://discord.gg/hycdkQAUKN")
 }
 
 x = requests.post(BLOG_URL, data={"over_view": 1, "get_id": 0})
@@ -45,7 +45,7 @@ for i in mod_news:
     news.insert(i, mod_news[i][1])
 
 for i in range(len(titles)):
-    txt = f"INSERT INTO announcements(id, title, news) VALUES ({i+1}, '{titles[i].replace("'", "\\'")}', '{news[i].replace("'", "\\'")}');"
+    txt = f"INSERT INTO announcements(id, title, news) VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
     cur.execute(txt)
 
 con.close()
