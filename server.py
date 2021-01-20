@@ -1,12 +1,18 @@
-#!/usr/bin/env python
 import os
 import flask
-import requests
+import psycopg2
 from flask import render_template, request
 
 # Create the application.
 app = flask.Flask(__name__)
 BLOG_URL = "http://nefault1s.online/Blog.php"
+conn = psycopg2.connect(DATABASE_URL)
+CUR = conn.cursor()
+
+class New:
+    def __init__(title, id):
+        self.title = title
+        self.id = id
 
 @app.route('/')
 def index():
@@ -18,8 +24,11 @@ def index():
 def news():
     over_view = request.form["over_view"]
     get_id = request.form["get_id"]
-    x = requests.post(BLOG_URL, data={"over_view": over_view, "get_id": get_id})
-    return x.content
+    CUR.execute("SELECT * ... FROM table_name WHERE condition;")
+
+    if over_view == 0:
+        txt.append(mod_news)
+    return txt
 
 if __name__ == '__main__':
     app.debug=True
