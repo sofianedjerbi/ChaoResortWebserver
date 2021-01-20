@@ -45,7 +45,7 @@ for i in mod_news:
     news.insert(i, mod_news[i][1])
 
 for i in range(len(titles)):
-    txt = f"INSERT INTO announcements(id, title, news) VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
+    txt = f"INSERT INTO announcements(id, title, news) VALUES ({i+1}, '{titles[i].replace("'", "\\'")}', '{news[i].replace("'", "\\'")}');"
     cur.execute(txt)
 
 con.close()
