@@ -25,7 +25,7 @@ x = requests.post(BLOG_URL, data={"over_view": 1, "get_id": 0})
 
 news = []
 
-titles = [e + ']' for e in x.content.split(']')]
+titles = [e + ']' for e in x.text.split(']')]
 titles.pop()
 titles.reverse() # It's ugly but whatever.
 
