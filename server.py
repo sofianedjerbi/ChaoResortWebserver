@@ -6,7 +6,7 @@ import requests
 app = flask.Flask(__name__)
 BLOG_URL = "http://nefault1s.online/Blog.php"
 
-@APP.route('/')
+@app.route('/')
 def index():
     """ Displays the index page accessible at '/'
     """
