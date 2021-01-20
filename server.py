@@ -5,6 +5,7 @@ from flask import render_template, request
 
 # Create the application.
 app = flask.Flask(__name__)
+DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
 conn = psycopg2.connect(DATABASE_URL)
 CUR = conn.cursor()

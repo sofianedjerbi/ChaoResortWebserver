@@ -37,7 +37,7 @@ for i in mod_news:
     news.insert(i, mod_news[i][1])
 
 for i in range(len(titles)):
-    cur.execute(f"INSERT INTO News VALUES ({i+1}, {titles[i]}, {news[i]});")
+    cur.execute(f"INSERT INTO News VALUES ({i+1}, \"{titles[i]}\", \"{news[i]}\");")
 
 con.close()
 # DONE !
