@@ -15,7 +15,7 @@ CREATE TABLE News (
 """
 DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
-conn = psycopg2.connect(DATABASE_URL)
+conn = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = conn.cursor()
 try:
     cur.execute("""CREATE TABLE announcements (
