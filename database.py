@@ -48,5 +48,5 @@ for i in range(len(titles)):
     txt = f"INSERT INTO announcements(id, title, news) VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
     cur.execute(txt)
 
-con.close()
+conn.close()
 # DONE !
