@@ -1,6 +1,6 @@
 import requests
 import psycopg2
-from os import environ
+import os
 """ CONFIG : News
  *
 CREATE TABLE accounts (
