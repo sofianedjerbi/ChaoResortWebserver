@@ -16,8 +16,8 @@ def index():
 
 @app.route('/blog', methods=['POST'])
 def news():
-    print(request.data)
-    print(request.text)
+    print(request.form)
+    print(request.json)
     #requests.post(BLOG_URL, data={})
     return render_template('index.html')
 
