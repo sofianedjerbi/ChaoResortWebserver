@@ -20,8 +20,8 @@ cur = conn.cursor()
 try:
     cur.execute("""CREATE TABLE announcements (
     	id SMALLINT PRIMARY KEY,
-    	title VARCHAR (50) UNIQUE NOT NULL,
-    	news VARCHAR (512) NOT NULL
+    	title VARCHAR (128) UNIQUE NOT NULL,
+    	news VARCHAR (1024) NOT NULL
      );""")
 except:
     pass
