@@ -16,12 +16,10 @@ def index():
 
 @app.route('/blog', methods=['POST'])
 def news():
-    print(request.form)
-    print(request.json)
     over_view = request.form["over_view"]
     get_id = request.form["get_id"]
     x = requests.post(BLOG_URL, data={"over_view": over_view, "get_id": get_id})
-    return x.data
+    return x.content
 
 if __name__ == '__main__':
     app.debug=True
