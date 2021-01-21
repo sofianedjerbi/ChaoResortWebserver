@@ -52,6 +52,16 @@ def news_count():
     raw_count = CUR.fetchall()
     return str(raw_count[0][0])
 
+@app.route('/update', methods=['POST'])
+def update():
+    os = request.form["os_g_version"]
+    if os == "windows":
+        return "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Windows.zip"
+    elif os == "mac" or os == "ios":
+        return "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Mac.zip"
+    else:
+        return "" 
+
 if __name__ == '__main__':
     app.debug=True
     port = int(os.environ.get('PORT', 5000))
