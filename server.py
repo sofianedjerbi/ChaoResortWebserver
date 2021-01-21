@@ -22,7 +22,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/blog', methods=['POST'])
-def news():
+def blog():
     over_view = request.form["over_view"]
     get_id = request.form["get_id"]
     #print(f"over:{over_view}; id:{get_id}")
@@ -45,6 +45,12 @@ def news():
         raw_data = CUR.fetchall()
         msg = raw_data[0][2]
         return msg
+
+@app.route('/news_count', methods=['POST'])
+def news_count():
+    CUR.execute("SELECT count(*) FROM public.announcements;") # Get cardinal
+    raw_count = CUR.fetchall()
+    return raw_count[0][0]
 
 if __name__ == '__main__':
     app.debug=True
