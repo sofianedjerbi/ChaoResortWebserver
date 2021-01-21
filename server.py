@@ -25,18 +25,18 @@ def index():
 def news():
     over_view = request.form["over_view"]
     get_id = request.form["get_id"]
-    print(f"over:{over_view}; id:{get_id}")
-    if over_view == 1:
+    #print(f"over:{over_view}; id:{get_id}")
+    if over_view == "1":
         titles = ""
         CUR.execute("SELECT count(*) FROM public.announcements;") # Get cardinal
         raw_count = CUR.fetchall()
         card = raw_count[0][0]
-        print(f"card:{card}")
+        #print(f"card:{card}")
         for i in range(1, card+1):
             CUR.execute(f"SELECT * FROM public.announcements WHERE id={i};")
             raw_data = CUR.fetchall()
             titles += raw_data[0][1]
-            print(f"raw:{raw_data}; titles:{titles}")
+            #print(f"raw:{raw_data}; titles:{titles}")
         return titles # Title list
     else:
         CUR.execute(f"SELECT * FROM public.announcements WHERE id={get_id};")
