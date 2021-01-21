@@ -27,7 +27,7 @@ def news():
     get_id = request.form["get_id"]
     #print(f"over:{over_view}; id:{get_id}")
     if over_view == "1":
-        titles = ""
+        titles = []
         CUR.execute("SELECT count(*) FROM public.announcements;") # Get cardinal
         raw_count = CUR.fetchall()
         card = raw_count[0][0]
@@ -36,8 +36,9 @@ def news():
             CUR.execute(f"SELECT * FROM public.announcements WHERE id={i};")
             raw_data = CUR.fetchall()
             #print(f"raw:{raw_data}; titles:{titles}")
-            titles += raw_data[0][1]
-        return titles # Title list
+            titles.append(raw_data[0][1])
+        titles_txt = ''.join(titles.reverse())
+        return titles_txt # Title list
     else:
         CUR.execute(f"SELECT * FROM public.announcements WHERE id={get_id};")
         raw_data = CUR.fetchall()
