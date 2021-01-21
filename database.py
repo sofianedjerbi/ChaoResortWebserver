@@ -16,10 +16,10 @@ CREATE TABLE public.announcements (
 """
 DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
-conn = psycopg2.connect(DATABASE_URL, sslmode='require')
-cur = conn.cursor()
+con = psycopg2.connect(DATABASE_URL, sslmode='require')
+cur = con.cursor()
 mod_news = {
-    11: ("Thanks for downloading this mod![Jan-20-21]", "I hope you will like it! Chao Resort Island isn not dead yet! We are working on a new character by the way! Click to join the mod discord![https://discord.gg/hycdkQAUKN")
+    11: ("Thanks for downloading this mod![Jan-20-21]", "I hope you're having fun! Chao Resort Island isn't dead yet! We're working on a new character by the way! Click to join the mod discord![https://discord.gg/hycdkQAUKN")
 }
 
 x = requests.post(BLOG_URL, data={"over_view": 1, "get_id": 0})
@@ -31,15 +31,20 @@ titles.pop()
 titles.reverse() # It's ugly but whatever.
 
 for i in range(len(titles)):
-    news.append(requests.post(BLOG_URL, data={"over_view": 0, "get_id": i+1}))
+    x = requests.post(BLOG_URL, data={"over_view": 0, "get_id": i+1})
+    news.append(x.text)
 
-for i in mod_news:
-    titles.insert(i, mod_news[i][0])
-    news.insert(i, mod_news[i][1])
+for id in mod_news:
+    titles.insert(id, mod_news[id][0])
+    news.insert(id, mod_news[id][1])
+
+for i in range(len(news)): # Escape quotes
+    news[i] = news[i].replace("'", "''")
 
 for i in range(len(titles)):
-    txt = f"INSERT INTO public.announcements VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
+    txt = f"INSERT INTO \"public\".\"announcements\" (\"id\", \"title\", \"news\")  VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
     cur.execute(txt)
 
-conn.close()
+con.commit()
+con.close()
 # DONE !
