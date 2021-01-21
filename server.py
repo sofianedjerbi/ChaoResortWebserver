@@ -7,8 +7,8 @@ from flask import render_template, request
 app = flask.Flask(__name__)
 DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
-conn = psycopg2.connect(DATABASE_URL)
-CUR = conn.cursor()
+con = psycopg2.connect(DATABASE_URL, sslmode='require')
+CUR = con.cursor()
 
 class New:
     def __init__(title, id):
@@ -25,11 +25,21 @@ def index():
 def news():
     over_view = request.form["over_view"]
     get_id = request.form["get_id"]
-    CUR.execute("SELECT * ... FROM table_name WHERE condition;")
-
-    if over_view == 0:
-        txt.append(mod_news)
-    return txt
+    if over_view == 1:
+        titles = ""
+        CUR.execute("SELECT count(*) FROM public.announcements;") # Get cardinal
+        raw_count = CUR.fetchall()
+        card = raw_count[0][0]
+        for i in range(1, card+1):
+            CUR.execute(f"SELECT * FROM public.announcements WHERE id={i};")
+            raw_data = CUR.fetchall()
+            titles += raw_data[0][1]
+        return titles # Title list
+    else:
+        CUR.execute(f"SELECT * FROM public.announcements WHERE id={get_id};")
+        raw_data = CUR.fetchall()
+        msg = raw_data[0][2]
+        return msg
 
 if __name__ == '__main__':
     app.debug=True
