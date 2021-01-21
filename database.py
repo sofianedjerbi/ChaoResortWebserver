@@ -19,7 +19,7 @@ BLOG_URL = "http://nefault1s.online/Blog.php"
 con = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = con.cursor()
 mod_news = {
-    11: ("Thank you for downloading this mod![Jan-20-21]", "Hello! I hope you're having fun! Chao Resort Island isn't dead yet, we're working hard on this mod. A new unlockable character is coming soon. Click to join the mod discord![https://discord.gg/hycdkQAUKN")
+    11: ("(MOD) Thank you for downloading this mod![Jan-20-21]", "Hello! I hope you're having fun! Chao Resort Island isn't dead yet, we're working hard on this mod. A new unlockable character is coming soon. Click to join the mod discord![https://discord.gg/hycdkQAUKN")
 }
 
 x = requests.post(BLOG_URL, data={"over_view": 1, "get_id": 0})
