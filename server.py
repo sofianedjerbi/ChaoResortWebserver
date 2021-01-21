@@ -44,7 +44,7 @@ def blog():
         CUR.execute(f"SELECT * FROM public.announcements WHERE id={get_id};")
         raw_data = CUR.fetchall()
         msg = raw_data[0][2]
-        return msg
+        return str(msg)
 
 @app.route('/news_count', methods=['POST'])
 def news_count():
