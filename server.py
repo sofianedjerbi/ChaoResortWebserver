@@ -44,13 +44,13 @@ def blog():
         CUR.execute(f"SELECT * FROM public.announcements WHERE id={get_id};")
         raw_data = CUR.fetchall()
         msg = raw_data[0][2]
-        return str(msg)
+        return msg
 
 @app.route('/news_count', methods=['POST'])
 def news_count():
     CUR.execute("SELECT count(*) FROM public.announcements;") # Get cardinal
     raw_count = CUR.fetchall()
-    return raw_count[0][0]
+    return str(raw_count[0][0])
 
 if __name__ == '__main__':
     app.debug=True
