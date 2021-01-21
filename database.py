@@ -43,7 +43,10 @@ for i in range(len(news)): # Escape quotes
 
 for i in range(len(titles)):
     txt = f"INSERT INTO \"public\".\"announcements\" (\"id\", \"title\", \"news\")  VALUES ({i+1}, '{titles[i]}', '{news[i]}');"
-    cur.execute(txt)
+    CUR.execute(f"SELECT * FROM public.announcements WHERE id={get_id};")
+    raw_data = CUR.fetchall()
+    if len(raw_data) == 0:
+        cur.execute(txt)
 
 con.commit()
 con.close()
