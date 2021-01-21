@@ -37,7 +37,8 @@ def news():
             raw_data = CUR.fetchall()
             #print(f"raw:{raw_data}; titles:{titles}")
             titles.append(raw_data[0][1])
-        titles_txt = ''.join(titles.reverse())
+        titles.reverse()
+        titles_txt = ''.join(titles)
         return titles_txt # Title list
     else:
         CUR.execute(f"SELECT * FROM public.announcements WHERE id={get_id};")
