@@ -1,4 +1,5 @@
 import os
+import re
 import flask
 import psycopg2
 from flask import render_template, request
@@ -54,13 +55,15 @@ def news_count():
 
 @app.route('/update', methods=['POST'])
 def update():
+    req = requests.get("https://raw.githubusercontent.com/Kugge/Chao-Resort-Island-X/master/Version.txt")
+    ver = re.search(r"GAME=([0-9]*)\r", req.text)
     os = request.form["os_g_version"]
     if os == "windows":
-        return "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Windows.zip"
+        return ver + "[https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Windows.zip]67913433{110"
     elif os == "mac" or os == "ios":
-        return "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Mac.zip"
+        return ver + "[https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Mac.zip]67913433{110"
     else:
-        return "" 
+        return ""
 
 if __name__ == '__main__':
     app.debug=True
