@@ -56,13 +56,18 @@ def news_count():
 
 @app.route('/update', methods=['POST'])
 def update():
+    win_url = "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.zip"
+    mac_url = "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Mac.zip"
     req = requests.get("https://raw.githubusercontent.com/Kugge/Chao-Resort-Island-X/master/Version.txt")
-    ver = re.search(r"GAME=([0-9]*)\r", req.text).group(1)
+    ver = re.search(r"OVERSION=([0-9]*)\r", req.text).group(1)
+    mod_ver = re.search(r"XVERSION=([0-9]*)\r", req.text).group(1)
     os = request.form["os_g_version"]
     if os == "windows":
-        return ver + "[https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Windows.zip]67913433{110"
+        # mod_ver was originally gile size, useless, so I replaced it by mod version.
+        # 110 = Max file size.
+        return f"{ver}[{win_url}] + mod_ver +{110"
     elif os == "mac" or os == "ios":
-        return ver + "[https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Mac.zip]67913433{110"
+        return f"{ver}[{mac_url}] + mod_ver + {110"
     else:
         return ""
 
