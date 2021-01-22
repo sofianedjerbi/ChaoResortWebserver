@@ -57,7 +57,7 @@ def news_count():
 @app.route('/update', methods=['POST'])
 def update():
     req = requests.get("https://raw.githubusercontent.com/Kugge/Chao-Resort-Island-X/master/Version.txt")
-    ver = re.search(r"GAME=([0-9]*)\r", req.text)
+    ver = re.search(r"GAME=([0-9]*)\r", req.text).group(1)
     os = request.form["os_g_version"]
     if os == "windows":
         return ver + "[https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Windows.zip]67913433{110"
