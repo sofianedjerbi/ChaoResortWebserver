@@ -82,10 +82,16 @@ def secret():
     ver = request.form["submit_version"]
     secret = request.form["secret"]
     print(secret)
-    if ver != -1:
-        return PASSWORDS[secret][0]
+    if ver == '-1':
+        if secret in PASSWORDS:
+            return PASSWORDS[secret][1]
+        else:
+            return "R"
     else:
-        return PASSWORDS[secret][1]
+        if secret in PASSWORDS:
+            return PASSWORDS[secret][0]
+        else:
+            return "R"
 
 if __name__ == '__main__':
     app.debug=True
