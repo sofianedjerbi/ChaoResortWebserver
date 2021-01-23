@@ -11,6 +11,12 @@ DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
 con = psycopg2.connect(DATABASE_URL, sslmode='require')
 CUR = con.cursor()
+PASSWORDS = {
+"bubbles": ("132", "You've just received the toy bubble maker!\nThis will be fun for all chao!6"),
+"sola1st": ("132", "You've received the dev's first chao!\nMeet Sola the chao; raised by Sonic!\nTake good care of her!2"),
+"concept of love": ("132", "You've received Beat the Chao!\nBeat is one musical prodigy.\nTreat this chao with great care!5"),
+"joyconboyz": ("132", "You've received the special EWN Chao!\nR.I.P Desmond\n\#J O Y C O N B O Y Z F O R E V E R1"),
+} # I wonder if there's more passwords.
 
 class New:
     def __init__(title, id):
@@ -70,6 +76,16 @@ def update():
         return ver + "[" + mac_url + "]" + mod_ver + "{110"
     else:
         return ""
+
+@app.route('/secret', methods=['POST'])
+def news_count():
+    ver = request.form["submit_version"]
+    secret = request.form["secret"]
+    print(secret)
+    if ver != -1:
+        return PASSWORDS[secret][0]
+    else:
+        return PASSWORDS[secret][1]
 
 if __name__ == '__main__':
     app.debug=True
