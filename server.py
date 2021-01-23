@@ -94,7 +94,7 @@ def secret():
         if secret in PASSWORDS:
             return PASSWORDS[secret][0]
         else:
-            return 132
+            return "132"
 
 if __name__ == '__main__':
     app.debug=True
