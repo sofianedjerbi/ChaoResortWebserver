@@ -78,7 +78,7 @@ def update():
         return ""
 
 @app.route('/secret', methods=['POST'])
-def news_count():
+def secret():
     ver = request.form["submit_version"]
     secret = request.form["secret"]
     print(secret)
