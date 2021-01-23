@@ -16,6 +16,13 @@ PASSWORDS = {
 "sola1st": ("132", "You've received the dev's first chao!#Meet Sola the chao; raised by Sonic!#Take good care of her!2"),
 "concept of love": ("132", "You've received Beat the Chao!#Beat is one musical prodigy.#Treat this chao with great care!5"),
 "joyconboyz": ("132", "You've received the special EWN Chao!#R.I.P Desmond#J O Y C O N B O Y Z F O R E V E R1"),
+"test1": ("132", "This is a test value.1"),
+"test2": ("132", "This is a test value.2"),
+"test3": ("132", "This is a test value.3"),
+"test4": ("132", "This is a test value.4"),
+"test5": ("132", "This is a test value.5"),
+"test6": ("132", "This is a test value.6"),
+"test7": ("132", "This is a test value.7"),
 } # I wonder if there's more passwords.
 
 class New:
