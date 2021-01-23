@@ -65,9 +65,9 @@ def update():
     if os == "windows":
         # mod_ver was originally gile size, useless, so I replaced it by mod version.
         # 110 = Min version compatible with auto update.
-        return ver + "[" + win_url + "]" + mod_ver + "{110""
+        return ver + "[" + win_url + "]" + mod_ver + "{110"
     elif os == "mac" or os == "ios":
-        return ver + "[" + mac_url + "]" + mod_ver + "{110""
+        return ver + "[" + mac_url + "]" + mod_ver + "{110"
     else:
         return ""
 
