@@ -1,9 +1,12 @@
+""" SETUP SQL TABLES EASILY """
+
 import requests
 import psycopg2
 import os
 import time
-""" CONFIG : News
- *
+""" CONFIG : News / Setup SQL tables """
+"""
+*
 CREATE TABLE public.announcements (
 	id SMALLINT PRIMARY KEY,
 	title VARCHAR (50) UNIQUE NOT NULL,
@@ -14,14 +17,17 @@ CREATE TABLE public.announcements (
  DATE FORMAT : [Aug-06-17]
  (Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec)
 """
+
 DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
+
 con = psycopg2.connect(DATABASE_URL, sslmode='require')
 cur = con.cursor()
+
+# News board displayed on the game
 mod_news = {
     11: ("(MOD) Thank you for downloading this mod![Jan-20-21]", "Hello! I hope you're having fun! Chao Resort Island isn't dead yet, we're working hard on this mod. A new unlockable character is coming soon. Click to join the mod discord![https://discord.gg/hycdkQAUKN")
 }
-
 x = requests.post(BLOG_URL, data={"over_view": 1, "get_id": 0})
 
 news = []

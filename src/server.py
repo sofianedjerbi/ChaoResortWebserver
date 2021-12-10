@@ -1,3 +1,6 @@
+""" server.py
+Setup flask server and parse/send requests
+"""
 import os
 import re
 import flask
@@ -5,35 +8,33 @@ import psycopg2
 import requests
 from flask import render_template, request
 
-# Create the application.
-app = flask.Flask(__name__)
+# Parse data/URLs
 DATABASE_URL = os.environ['DATABASE_URL']
 BLOG_URL = "http://nefault1s.online/Blog.php"
-con = psycopg2.connect(DATABASE_URL, sslmode='require')
-CUR = con.cursor()
-PASSWORDS = {
+
+PASSWORDS = { # Might be added in the database
 "bubbles": ("132", "You've just received the toy bubble maker!#This will be fun for all chao!6"),
 "sola1st": ("132", "You've received the dev's first chao!#Meet Sola the chao; raised by Sonic!#Take good care of her!2"),
 "concept of love": ("132", "You've received Beat the Chao!#Beat is one musical prodigy.#Treat this chao with great care!5"),
 "joyconboyz": ("132", "You've received the special EWN Chao!#R.I.P Desmond#J O Y C O N B O Y Z F O R E V E R1"), # RIP Etika
 #"test3": ("132", "This is a test value.3"), # White chao
-#"test4": ("132", "This is a test value.4"), #TV
+#"test4": ("132", "This is a test value.4"), # TV
 #"test7": ("132", "This is a test value.7"), # ORCA
-} # I wonder if there's more passwords. <- We got them all!
+} 
 
-class New:
-    def __init__(title, id):
-        self.title = title
-        self.id = id
+# Connect to database
+con = psycopg2.connect(DATABASE_URL, sslmode='require')
+CUR = con.cursor()
+
 
 @app.route('/')
 def index():
-    """ Displays the index page accessible at '/'
-    """
+    """ Displays the index page accessible at '/' """
     return render_template('index.html')
 
 @app.route('/blog', methods=['POST'])
 def blog():
+    """ Handle and parse blog/news board requests """
     over_view = request.form["over_view"]
     get_id = request.form["get_id"]
     #print(f"over:{over_view}; id:{get_id}")
@@ -59,12 +60,14 @@ def blog():
 
 @app.route('/news_count', methods=['POST'])
 def news_count():
+    """ Return the number of news available """
     CUR.execute("SELECT count(*) FROM public.announcements;") # Get cardinal
     raw_count = CUR.fetchall()
     return str(raw_count[0][0])
 
 @app.route('/update', methods=['POST'])
 def update():
+    """ Fetch updates """
     win_url = "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.zip"
     mac_url = "https://github.com/Kugge/Chao-Resort-Island-X/releases/latest/download/Chao.Resort.Island.Mac.zip"
     req = requests.get("https://raw.githubusercontent.com/Kugge/Chao-Resort-Island-X/master/Version.txt")
@@ -72,7 +75,7 @@ def update():
     mod_ver = re.search(r"XVERSION=([0-9]*)\r", req.text).group(1)
     os = request.form["os_g_version"]
     if os == "windows":
-        # mod_ver was originally gile size, useless, so I replaced it by mod version.
+        # mod_ver was originally random size, so I replaced it by mod version.
         # 110 = Min version compatible with auto update.
         return ver + "[" + win_url + "]" + mod_ver + "{110"
     elif os == "mac" or os == "ios":
@@ -82,6 +85,7 @@ def update():
 
 @app.route('/secret', methods=['POST'])
 def secret():
+    """ Handle online secrets in the game """
     ver = request.form["submit_version"]
     secret = request.form["secret"]
     print(secret)
@@ -96,7 +100,9 @@ def secret():
         else:
             return "132"
 
+
 if __name__ == '__main__':
+    # Run the app
     app.debug=True
     port = int(os.environ.get('PORT', 5000))
     app.run(threaded=True, port=port, host='0.0.0.0')
